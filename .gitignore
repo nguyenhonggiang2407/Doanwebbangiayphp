@@ -1,0 +1,12 @@
+# Local configuration, personal exports and generated files.
+.env
+.env.*
+!.env.example
+config.local.php
+*.log
+*.sql.gz
+*.bak
+backups/
+node_modules/
+.DS_Store
+Thumbs.db
