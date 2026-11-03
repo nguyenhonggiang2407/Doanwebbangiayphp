@@ -55,8 +55,15 @@ và kiểm thử bảo vệ. Đây là các phát hiện từ source, không ph�
 ## Kiểm tra đã thực hiện
 
 Ngày 03/11/2026: đọc source, kiểm tra cây thư mục, `node --check javascript.js`
-và `node --check Shop/javascript.js` đều vượt qua. Không có PHP/MySQL/Docker trong
-môi trường kiểm tra nên chưa lint PHP, khởi chạy app hoặc xác minh checkout/admin.
+và `node --check Shop/javascript.js` đều vượt qua.
+
+Bổ sung ngày 04/11/2026: đã tìm thấy PHP CLI 8.0.30 trong XAMPP ngoài PATH và
+chạy `php -l` cho toàn bộ **80 tệp PHP tracked** ở cả gốc và `Shop/`; tất cả vượt qua.
+Repo chưa khai báo minimum PHP version. Kết quả này chỉ xác nhận cú pháp trên
+8.0.30, chưa chứng minh tương thích runtime hoặc nghiệp vụ.
+Không thực thi handler, installer, seed hoặc truy vấn database trong đợt lint.
+Do chưa có schema và database thử riêng, chưa khởi chạy app hoặc xác minh checkout/admin.
+Chưa chạy Docker.
 Không tìm thấy bộ kiểm thử tự động hoặc CI trong source hiện có.
 
 ## Nguồn và quyền sử dụng
