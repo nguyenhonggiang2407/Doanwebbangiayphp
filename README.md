@@ -11,6 +11,9 @@ Repository được giữ như một dự án học tập cũ, chưa phải bả
 - Giỏ hàng theo session và các trang xử lý đặt hàng.
 - Các màn quản lý sản phẩm, danh mục, tài khoản, đơn hàng, bình luận và phản hồi.
 
+Hai trang tìm kiếm ở gốc và `Shop/` cùng dùng một truy vấn mysqli có tham số.
+Các ký tự `%` và `_` được tìm như ký tự thường. Trang báo rõ khi kết quả rỗng.
+
 Đây là mô tả các trang/handler có trong mã; chưa xác nhận các luồng hoạt động hoàn chỉnh.
 Không có tích hợp thanh toán online được xác minh.
 
@@ -49,8 +52,9 @@ Không có bản public demo được xác minh trong đợt audit ngày 03/11/2
 - Bootstrap/jQuery/Font Awesome được tải từ CDN; quyền dùng ảnh trong `img/` chưa
   có hồ sơ nguồn. Không xem ảnh hoặc tên thương hiệu trong source là quyền phân phối lại.
 
-Đợt này giữ nguyên source để không làm thay đổi dữ liệu/luồng cũ khi chưa có schema
-và kiểm thử bảo vệ. Đây là các phát hiện từ source, không phải báo cáo kiểm thử xâm nhập.
+Để nâng cấp xác thực, cần khôi phục schema gốc, xác định độ dài cột mật khẩu
+và rà soát các trang quản lý tài khoản ở cả hai cây mã. Sau đó mới thử migration
+mật khẩu trên database cục bộ có dữ liệu hư cấu.
 
 ## Kiểm tra đã thực hiện
 
@@ -65,6 +69,10 @@ Không thực thi handler, installer, seed hoặc truy vấn database trong đ�
 Do chưa có schema và database thử riêng, chưa khởi chạy app hoặc xác minh checkout/admin.
 Chưa chạy Docker.
 Không tìm thấy bộ kiểm thử tự động hoặc CI trong source hiện có.
+
+Ngày 10/11/2026, PHP CLI lint đạt cho cả 81 tệp. Truy vấn tìm kiếm mới đã qua
+smoke test trên bảng tạm MariaDB với năm ca gồm tiếng Việt, dấu nháy, ký tự
+wildcard và đầu vào SQL injection. Kiểm thử này bao phủ truy vấn tìm kiếm.
 
 ## Nguồn và quyền sử dụng
 

@@ -259,19 +259,21 @@ session_start();
 						<div class="row sm-gutter">
 							
 						<?php
-                        if(isset($_POST['s']))
-                        {
-                            $s= $_POST['s'];
+                        $term = $_POST['s'] ?? null;
+                        if (is_string($term) && trim($term) !== '' && strlen($term) <= 400) {
+                            require_once __DIR__ . '/catalog_search.php';
 							$conn = mysqli_connect("localhost", "root", "", "dacs2");
-							$sql = "SELECT * From sanpham WHERE tensp LIKE '%$s%'";
-							$ketqua = mysqli_query($conn,$sql);
+							$ketqua = findProductsByTitle($conn, trim($term));
+                            if ($ketqua->num_rows === 0) {
+                                echo '<p role="status">Không tìm thấy sản phẩm phù hợp.</p>';
+                            }
                            
 							while($row=mysqli_fetch_array($ketqua)){
 							echo '<div class="column l-2-4 me-4 s-6" >
 							<a class="home-product-item" href="./pages/sanpham.php?id= '.$row['id'].'">>
 								<div class="home-product-item__img" style="background-image:url('.$row['hinhanh'] .')">
 								</div>
-								<h4 class="home-product-item__name">'.$row['tensp'].'</h4>
+								<h4 class="home-product-item__name">'.htmlspecialchars($row['tensp'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8').'</h4>
 								<div class="home-product-item__price">
 									<div class="home-product-item__price-old">'.number_format($row['giasp'],3).'đ</div>
 									<div class="home-product-item__price-new">'.number_format($row['giasp']-($row['giasp']* ($row['giamgia']* 0.01)),3).'đ</div>
